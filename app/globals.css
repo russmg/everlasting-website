@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
+/*
+ * Everlasting Renovations — brand tokens
+ * Verified hex values — do not substitute (a navy regression was caught and fixed earlier).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --color-brand-brown: #6b2d0e;
+  --color-brand-brown-light: #8a4420;
+  --color-brand-brown-dark: #4a1f0a;
+
+  --color-brand-gold: #c97429;
+  --color-brand-gold-light: #e0934f;
+  --color-brand-gold-dark: #a85d1d;
+
+  --color-brand-cream: #faf7f2;
+  --color-brand-cream-dark: #f0ead9;
+
+  --color-brand-slate: #1c1917;
+  --color-brand-slate-light: #44403c;
+
+  --background: var(--color-brand-cream);
+  --foreground: var(--color-brand-slate);
+
+  /* Semantic theme layer — role-based, not brand-color-based, so light/dark
+     can flip without touching every component. */
+  --color-surface: var(--color-brand-cream);
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: var(--color-brand-cream-dark);
+  --color-surface-inverse: var(--color-brand-brown);
+
+  --color-content: var(--color-brand-slate);
+  --color-content-muted: var(--color-brand-slate-light);
+  --color-heading: var(--color-brand-brown);
+  --color-on-inverse: #ffffff;
+
+  --color-border: rgb(107 45 14 / 0.1);
+  --color-border-inverse: rgb(255 255 255 / 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --background: #1a1512;
+    --foreground: #ece7e0;
+
+    --color-brand-gold: #e0934f;
+    --color-brand-gold-light: #eeb17d;
+    --color-brand-gold-dark: #c97429;
+
+    --color-surface: #1a1512;
+    --color-surface-raised: #241d18;
+    --color-surface-sunken: #14100d;
+    --color-surface-inverse: #14100d;
+
+    --color-content: #ece7e0;
+    --color-content-muted: #b8afa4;
+    --color-heading: #eeb17d;
+    --color-on-inverse: #ece7e0;
+
+    --color-border: rgb(255 255 255 / 0.1);
+    --color-border-inverse: rgb(255 255 255 / 0.1);
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand-brown: var(--color-brand-brown);
+  --color-brand-brown-light: var(--color-brand-brown-light);
+  --color-brand-brown-dark: var(--color-brand-brown-dark);
+
+  --color-brand-gold: var(--color-brand-gold);
+  --color-brand-gold-light: var(--color-brand-gold-light);
+  --color-brand-gold-dark: var(--color-brand-gold-dark);
+
+  --color-brand-cream: var(--color-brand-cream);
+  --color-brand-cream-dark: var(--color-brand-cream-dark);
+
+  --color-brand-slate: var(--color-brand-slate);
+  --color-brand-slate-light: var(--color-brand-slate-light);
+
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-surface-sunken: var(--color-surface-sunken);
+  --color-surface-inverse: var(--color-surface-inverse);
+
+  --color-content: var(--color-content);
+  --color-content-muted: var(--color-content-muted);
+  --color-heading: var(--color-heading);
+  --color-on-inverse: var(--color-on-inverse);
+
+  --color-border: var(--color-border);
+  --color-border-inverse: var(--color-border-inverse);
+
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-inter);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* Accessibility: gold (#C97429) on cream (#FAF7F2) is ~3.6:1 — fails AA for
+   normal text. Use .text-gold-accent only for large/bold display text or as
+   a fill/border color (buttons, badges), never for small body copy. */
+.text-gold-accent {
+  color: var(--color-brand-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
