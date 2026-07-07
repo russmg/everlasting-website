@@ -26,6 +26,10 @@ export function AmbientVideoLoop({
   const videoRefs = [videoRefA, videoRefB];
   const [activeIndex, setActiveIndex] = useState(0);
   const crossfadingRef = useRef(false);
+  // The second clip only starts fetching once the first is actually
+  // playing, so it doesn't compete with the LCP-critical first clip for
+  // bandwidth at page load — instead of both preloading eagerly at once.
+  const [secondClipReady, setSecondClipReady] = useState(false);
 
   useEffect(() => {
     crossfadingRef.current = false;
@@ -64,20 +68,25 @@ export function AmbientVideoLoop({
 
   return (
     <>
-      {sources.map((src, i) => (
-        <video
-          key={src}
-          ref={videoRefs[i]}
-          src={src}
-          muted
-          playsInline
-          preload="auto"
-          autoPlay={i === 0}
-          poster={i === 0 ? poster : undefined}
-          className={`${className ?? "absolute inset-0 h-full w-full object-cover"} transition-opacity duration-[1200ms] ease-linear`}
-          style={{ opacity: activeIndex === i ? 1 : 0 }}
-        />
-      ))}
+      {sources.map((src, i) => {
+        const isFirst = i === 0;
+        const shouldLoad = isFirst || secondClipReady;
+        return (
+          <video
+            key={src}
+            ref={videoRefs[i]}
+            src={shouldLoad ? src : undefined}
+            muted
+            playsInline
+            preload={shouldLoad ? "auto" : "none"}
+            autoPlay={isFirst}
+            poster={isFirst ? poster : undefined}
+            onPlay={isFirst ? () => setSecondClipReady(true) : undefined}
+            className={`${className ?? "absolute inset-0 h-full w-full object-cover"} transition-opacity duration-[1200ms] ease-linear`}
+            style={{ opacity: activeIndex === i ? 1 : 0 }}
+          />
+        );
+      })}
     </>
   );
 }
