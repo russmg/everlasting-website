@@ -18,13 +18,22 @@ export function middleware(request: NextRequest) {
       return NextResponse.rewrite(url);
     }
 
-    // Any other path is off-target for this single-purpose ad host — send
-    // it to the real site instead of letting full-nav pages leak through
-    // the isolated landing domain.
-    const url = request.nextUrl.clone();
-    url.protocol = "https";
-    url.host = CANONICAL_HOST;
-    return NextResponse.redirect(url, 308);
+    // Only redirect actual page navigations — not sub-resource requests
+    // (videos, images, fonts) that the landing page itself loads from this
+    // same host. Without this check, every asset the page references was
+    // bouncing through a redirect round-trip before loading, which is
+    // exactly the kind of self-inflicted latency this host is supposed to
+    // avoid. Any other path that IS a navigation is off-target for this
+    // single-purpose ad host — send it to the real site instead of letting
+    // full-nav pages leak through the isolated landing domain.
+    if (request.headers.get("sec-fetch-dest") === "document") {
+      const url = request.nextUrl.clone();
+      url.protocol = "https";
+      url.host = CANONICAL_HOST;
+      return NextResponse.redirect(url, 308);
+    }
+
+    return NextResponse.next();
   }
 
   return NextResponse.next();
