@@ -35,6 +35,7 @@ export function CTAButton({
   className,
   onClick,
   type = "button",
+  disabled = false,
 }: {
   href?: string;
   variant?: Variant;
@@ -42,6 +43,12 @@ export function CTAButton({
   className?: string;
   onClick?: () => void;
   type?: "button" | "submit";
+  /** Real disabled state, not just a dimmed look via opacity: WCAG color-
+   * contrast exempts genuinely disabled controls, but opacity alone
+   * doesn't communicate that semantically (axe still flags it as an
+   * active low-contrast button) — this wires the actual `disabled`
+   * attribute so it counts as disabled correctly. */
+  disabled?: boolean;
 }) {
   const classes = clsx(base, variants[variant], className);
 
@@ -54,7 +61,7 @@ export function CTAButton({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {children}
     </button>
   );

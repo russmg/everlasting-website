@@ -235,7 +235,8 @@ export function LeadForm({
           <CTAButton
             type="button"
             variant="gold"
-            className={`w-full ${!step1Valid ? "pointer-events-none opacity-50" : ""}`}
+            className={`w-full ${!step1Valid ? "opacity-50" : ""}`}
+            disabled={!step1Valid}
             onClick={() => {
               if (step1Valid) goToStep(2);
             }}
@@ -295,7 +296,8 @@ export function LeadForm({
             <CTAButton
               type="button"
               variant="gold"
-              className={`flex-1 ${!step2Valid ? "pointer-events-none opacity-50" : ""}`}
+              className={`flex-1 ${!step2Valid ? "opacity-50" : ""}`}
+              disabled={!step2Valid}
               onClick={() => {
                 if (step2Valid) goToStep(3);
               }}
@@ -392,7 +394,8 @@ export function LeadForm({
             <CTAButton
               type="submit"
               variant="gold"
-              className={`flex-1 ${status === "submitting" ? "pointer-events-none opacity-50" : ""}`}
+              className={`flex-1 ${status === "submitting" ? "opacity-50" : ""}`}
+              disabled={status === "submitting"}
             >
               {status === "submitting" ? "Submitting…" : "Request Your Free Estimate"}
             </CTAButton>

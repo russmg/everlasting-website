@@ -95,6 +95,7 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
         {minimal && (
           <a
             href={siteConfig.contact.phoneHref}
+            aria-label={`Call ${siteConfig.contact.phone}`}
             className="flex items-center gap-2 text-sm font-semibold text-heading md:hidden"
           >
             <Phone className="h-5 w-5" aria-hidden="true" />
