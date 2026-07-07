@@ -174,7 +174,14 @@ export function LeadForm({
         className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
       />
 
-      <div className="flex gap-2" role="progressbar" aria-valuenow={state.step} aria-valuemin={1} aria-valuemax={3}>
+      <div
+        className="flex gap-2"
+        role="progressbar"
+        aria-label={`Step ${state.step} of 3`}
+        aria-valuenow={state.step}
+        aria-valuemin={1}
+        aria-valuemax={3}
+      >
         {[1, 2, 3].map((n) => (
           <span key={n} className={`${dotBase} ${n <= state.step ? dotFilled : dotEmpty}`} />
         ))}

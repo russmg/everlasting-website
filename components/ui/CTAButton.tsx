@@ -13,9 +13,15 @@ const base =
  * this button text is 16px). Dark slate text on gold passes at ~5:1, and
  * stays >=7:1 on the lighter hover state. Do not switch this back to white
  * text without bumping the gold background to a darker, verified shade.
+ *
+ * Uses text-on-gold (fixed dark slate), NOT text-content: content is a
+ * theme-flipping token (near-white in dark mode), but brand-gold doesn't
+ * invert brightness the same way between themes, so that pairing passed
+ * light mode (~5:1) while failing dark mode badly (~2:1) — caught via a
+ * live Lighthouse/axe run.
  */
 const variants: Record<Variant, string> = {
-  gold: "bg-brand-gold text-content hover:bg-brand-gold-light",
+  gold: "bg-brand-gold text-on-gold hover:bg-brand-gold-light",
   outline:
     "border-2 border-border text-heading hover:bg-surface-inverse hover:text-on-inverse",
   brown: "bg-surface-inverse text-on-inverse hover:bg-brand-brown-light",

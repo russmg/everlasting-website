@@ -36,6 +36,14 @@
   --color-heading: var(--color-brand-brown);
   --color-on-inverse: #ffffff;
 
+  /* Deliberately NOT redefined in the dark-mode block below: brand-gold
+     stays a similar mid-brightness in both themes (it doesn't invert like
+     surface/content do), so text on top of it needs a fixed dark color in
+     both modes rather than a theme-flipping token. Using --color-content
+     here previously passed contrast in light mode (~5:1) but failed badly
+     in dark mode (~2:1), since --color-content flips to near-white there. */
+  --color-on-gold: var(--color-brand-slate);
+
   --color-border: rgb(107 45 14 / 0.1);
   --color-border-inverse: rgb(255 255 255 / 0.1);
 }
@@ -93,6 +101,7 @@
   --color-content-muted: var(--color-content-muted);
   --color-heading: var(--color-heading);
   --color-on-inverse: var(--color-on-inverse);
+  --color-on-gold: var(--color-on-gold);
 
   --color-border: var(--color-border);
   --color-border-inverse: var(--color-border-inverse);

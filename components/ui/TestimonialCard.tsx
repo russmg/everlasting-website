@@ -13,7 +13,7 @@ export function TestimonialCard({
 }) {
   return (
     <div className="flex h-full flex-col gap-4 rounded-2xl border border-border/10 bg-surface-raised p-6 shadow-sm">
-      <div className="flex gap-1" aria-label={`${rating} out of 5 stars`}>
+      <div className="flex gap-1" role="img" aria-label={`${rating} out of 5 stars`}>
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
             key={i}
