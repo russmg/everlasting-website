@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 const LANDING_HOST_PREFIX = "landing.";
 const LANDING_SEGMENT = "/landing";
+const CANONICAL_HOST = "www.everlastingrenovationsinc.com";
 
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") ?? "";
@@ -11,16 +12,19 @@ export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Root path on the landing host serves the dedicated landing route.
-    // Any other path is passed through unmodified so the landing host can
-    // still reach shared routes (e.g. /api/*, /get-a-quote) without being
-    // forced under /landing.
     if (pathname === "/") {
       const url = request.nextUrl.clone();
       url.pathname = LANDING_SEGMENT;
       return NextResponse.rewrite(url);
     }
 
-    return NextResponse.next();
+    // Any other path is off-target for this single-purpose ad host — send
+    // it to the real site instead of letting full-nav pages leak through
+    // the isolated landing domain.
+    const url = request.nextUrl.clone();
+    url.protocol = "https";
+    url.host = CANONICAL_HOST;
+    return NextResponse.redirect(url, 308);
   }
 
   return NextResponse.next();
