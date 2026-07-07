@@ -10,9 +10,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, phone, email, service, city, message, source } = body;
+  const { firstName, lastName, phone, email, service, city, message, source } = body;
 
-  if (!name || !phone || !email || !service || !city) {
+  if (!firstName || !lastName || !phone || !email || !service || !city) {
     return NextResponse.json(
       { ok: false, error: "Missing required fields" },
       { status: 400 }
@@ -20,7 +20,8 @@ export async function POST(req: NextRequest) {
   }
 
   const result = await submitLeadToGhl({
-    name,
+    firstName,
+    lastName,
     phone,
     email,
     service,
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
   if (!result.ok && result.reason === "not_configured") {
     // GHL isn't wired yet (Phase 2). Treat as a soft success so the
     // homeowner still sees confirmation — the lead is logged server-side.
-    console.log("[lead] received (GHL not configured):", { name, phone, email, service, city });
+    console.log("[lead] received (GHL not configured):", { firstName, lastName, phone, email, service, city });
     return NextResponse.json({ ok: true, forwarded: false });
   }
 

@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Star } from "lucide-react";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { BeforeAfterSlider } from "@/components/ui/BeforeAfterSlider";
+import { AmbientVideoLoop } from "@/components/ui/AmbientVideoLoop";
 import { siteConfig } from "@/lib/site-config";
 
 const stagger = {
@@ -23,21 +24,29 @@ export function Hero() {
     : item;
 
   return (
-    <section className="relative overflow-hidden bg-surface px-4 pt-12 pb-20 sm:px-6 sm:pt-20">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+    <section className="relative overflow-hidden bg-[#0C0806] px-4 pt-12 pb-20 sm:px-6 sm:pt-20">
+      <div className="absolute inset-0">
+        <AmbientVideoLoop
+          sources={["/videos/hero-loop-1.mp4", "/videos/hero-loop-2.mp4"]}
+          poster="/videos/hero-poster.jpg"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0C0806] via-[#0C0806]/75 to-[#0C0806]/45" />
+      </div>
+
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
-          <motion.p variants={variants} className="font-semibold text-brand-gold-dark">
+          <motion.p variants={variants} className="font-semibold text-brand-gold">
             SOUTH ORANGE COUNTY GENERAL CONTRACTOR
           </motion.p>
           <motion.h1
             variants={variants}
-            className="mt-4 font-display text-4xl font-bold leading-tight text-heading sm:text-5xl lg:text-6xl"
+            className="mt-4 font-display text-4xl font-bold leading-tight text-on-inverse sm:text-5xl lg:text-6xl"
           >
             South Orange County&apos;s Trusted{" "}
             <em className="text-brand-gold not-italic font-bold italic">Christian</em> Home
             Renovation Contractor
           </motion.h1>
-          <motion.p variants={variants} className="mt-6 max-w-xl text-lg text-content-muted">
+          <motion.p variants={variants} className="mt-6 max-w-xl text-lg text-on-inverse/70">
             Family-owned since {siteConfig.founded} — rated {siteConfig.stats.buildZoomScore} on
             BuildZoom, placing us in the {siteConfig.stats.buildZoomPercentile}.
           </motion.p>
@@ -60,7 +69,7 @@ export function Hero() {
             <CTAButton href="/get-a-quote" variant="gold">
               Get Your Free Estimate
             </CTAButton>
-            <CTAButton href="/#gallery" variant="outline">
+            <CTAButton href="/#gallery" variant="brown">
               View Our Work
             </CTAButton>
           </motion.div>

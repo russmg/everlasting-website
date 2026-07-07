@@ -42,14 +42,14 @@ export function Footer({ minimal = false }: { minimal?: boolean }) {
     <footer className="bg-surface-inverse px-4 py-16 text-on-inverse sm:px-6">
       <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Link href="/" className="flex items-center gap-3" aria-label="Everlasting Renovations — Home">
-            <span className="flex items-center rounded-lg bg-white p-2">
+          <Link href="/" className="flex items-center" aria-label="Everlasting Renovations — Home">
+            <span className="inline-flex items-center rounded-lg bg-white px-3 py-2">
               <Image
-                src="/logo.png"
+                src="/logo-wordmark.png"
                 alt="Everlasting Renovations, Inc."
-                width={48}
-                height={48}
-                className="h-12 w-12"
+                width={156}
+                height={86}
+                className="h-12 w-auto"
               />
             </span>
           </Link>
