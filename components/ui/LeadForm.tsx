@@ -5,11 +5,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { CTAButton } from "./CTAButton";
 import { serviceDropdownOptions, siteConfig } from "@/lib/site-config";
 import { trackLeadSubmitted } from "@/lib/tracking";
+import { EMAIL_RE, PHONE_RE } from "@/lib/validation";
 
 type Status = "idle" | "submitting" | "success" | "error";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_RE = /^[0-9()+\-.\s]{7,}$/;
 
 interface WizardState {
   step: 1 | 2 | 3;
@@ -48,6 +46,7 @@ export function LeadForm({
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState("");
   const [state, dispatch] = useReducer(wizardReducer, {
     step: 1,
     firstName: "",
@@ -117,6 +116,7 @@ export function LeadForm({
       city: state.city,
       message: state.message,
       source,
+      company: honeypot,
     };
 
     try {
@@ -163,6 +163,17 @@ export function LeadForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      <input
+        type="text"
+        name="company"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+      />
+
       <div className="flex gap-2" role="progressbar" aria-valuenow={state.step} aria-valuemin={1} aria-valuemax={3}>
         {[1, 2, 3].map((n) => (
           <span key={n} className={`${dotBase} ${n <= state.step ? dotFilled : dotEmpty}`} />
