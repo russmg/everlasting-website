@@ -16,7 +16,7 @@ const trustChecks = [
 export default function GetAQuotePage() {
   return (
     <>
-      <Header />
+      <Header minimal />
       <main className="flex-1">
         <section className="bg-surface px-4 py-12 sm:px-6 sm:py-16">
           <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
@@ -92,7 +92,7 @@ export default function GetAQuotePage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer minimal />
     </>
   );
 }
