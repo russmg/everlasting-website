@@ -41,6 +41,7 @@ export function BeforeAfterGallery() {
                 beforeAlt={`${item.caption} — before`}
                 afterAlt={`${item.caption} — after`}
                 caption={item.caption}
+                sizes="(max-width: 1023px) 100vw, 33vw"
               />
             </FadeUp>
           ))}

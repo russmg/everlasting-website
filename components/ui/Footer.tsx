@@ -49,6 +49,7 @@ export function Footer({ minimal = false }: { minimal?: boolean }) {
                 alt="Everlasting Renovations, Inc."
                 width={156}
                 height={86}
+                sizes="88px"
                 className="h-12 w-auto"
               />
             </span>

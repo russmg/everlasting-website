@@ -41,6 +41,7 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
               alt="Everlasting Renovations, Inc."
               width={156}
               height={86}
+              sizes="(max-width: 639px) 73px, 88px"
               className="h-10 w-auto sm:h-12"
               priority
             />

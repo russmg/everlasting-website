@@ -20,6 +20,7 @@ export function BeforeAfterSlider({
   afterAlt,
   caption,
   representative = true,
+  sizes = "(max-width: 768px) 100vw, 50vw",
 }: {
   beforeSrc: string;
   afterSrc: string;
@@ -27,6 +28,11 @@ export function BeforeAfterSlider({
   afterAlt: string;
   caption?: string;
   representative?: boolean;
+  /** Match the actual rendered width at each breakpoint for the caller's
+   * layout — defaults to the 2-column Hero context. Over-wide defaults
+   * make next/image fetch a larger source than needed (flagged by
+   * Lighthouse's image-delivery-insight for the 3-column gallery grid). */
+  sizes?: string;
 }) {
   const reduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -83,7 +89,7 @@ export function BeforeAfterSlider({
           src={afterSrc}
           alt={afterAlt}
           fill
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes={sizes}
           className="object-cover"
         />
         <div
@@ -94,7 +100,7 @@ export function BeforeAfterSlider({
             src={beforeSrc}
             alt={beforeAlt}
             fill
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes={sizes}
             className="object-cover"
           />
         </div>
