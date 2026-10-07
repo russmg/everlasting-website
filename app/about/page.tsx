@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "About Us — Family-Owned General Contractor in South Orange County, CA",
   description:
     "Everlasting Renovations is a Christian, family-owned general contractor founded by Matthew Swavely in 2015 — licensed, bonded, insured, and backed by a 4-year warranty.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

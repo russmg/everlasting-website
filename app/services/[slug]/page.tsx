@@ -32,6 +32,7 @@ export async function generateMetadata({
     // Root layout's title.template already appends "| Everlasting Renovations, Inc."
     title: `${service.metaTitleKeyword} in Lake Forest, CA`,
     description: service.shortDescription,
+    alternates: { canonical: `/services/${slug}` },
   };
 }
 

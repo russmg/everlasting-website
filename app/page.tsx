@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "Home Renovation Contractor in South Orange County, CA",
   description:
     "Everlasting Renovations is a licensed, Christian family-owned general contractor serving South Orange County — kitchens, bathrooms, painting, ADUs, and flooring. CSLB #1097824.",
+  alternates: { canonical: "/" },
 };
 
 export default function HomePage() {
