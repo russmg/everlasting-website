@@ -8,6 +8,7 @@ import { serviceSlugs, services } from "@/lib/services-data";
 export const metadata: Metadata = {
   title: "Sitemap",
   description: "A full list of pages on the Everlasting Renovations website.",
+  alternates: { canonical: "/sitemap" },
 };
 
 const mainLinks = [
